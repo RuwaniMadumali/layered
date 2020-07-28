@@ -24,7 +24,7 @@ import java.util.List;
 public class BusinessLogic {
 
     public static String getNewCustomerId() {
-        String lastCustomerId = DataLayer.getLastCustomerId();
+        String lastCustomerId = CustomerDAO.getLastCustomerId();
         if (lastCustomerId == null) {
             return "C001";
         } else {
@@ -43,7 +43,7 @@ public class BusinessLogic {
     }
 
     public static String getNewItemCode() {
-        String lastItemCode = DataLayer.getLastItemCode();
+        String lastItemCode = ItemDAO.getLastItemCode();
         if (lastItemCode == null) {
             return "I001";
         } else {
@@ -62,7 +62,7 @@ public class BusinessLogic {
     }
 
     public static String getNewOrderId() {
-        String lastOrderId = DataLayer.getLastOrderId();
+        String lastOrderId = OrderDAO.getLastOrderId();
         if (lastOrderId == null) {
             return "OD001";
         } else {
