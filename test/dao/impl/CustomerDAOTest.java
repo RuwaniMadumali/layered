@@ -1,4 +1,4 @@
-package dao;
+package dao.impl;
 
 import entity.Customer;
 
@@ -7,7 +7,7 @@ import java.util.List;
 public class CustomerDAOTest {
 
     public static void main(String[] args) {
-        assert CustomerDAO.findAllCustomers().size() == 6;
+       // assert CustomerDAO.findAllCustomers().size() == 6;
 //        assert CustomerDAO.deleteCustomer("C011"): "Test Failed";
 //        boolean result = CustomerDAO.deleteCustomer("C006");
 //        List<Customer> customers = CustomerDAO.findAllCustomers();
