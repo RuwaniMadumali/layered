@@ -2,20 +2,19 @@ package dao;
 
 import db.DBConnection;
 import entity.Item;
-import entity.Item;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDAO {
-    public static List<Item> findAllItems(){
+    public List<Item> findAllItems() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Item");
             List<Item> items = new ArrayList<>();
-            while (rst.next()){
+            while (rst.next()) {
                 items.add(new Item(rst.getString(1),
                         rst.getString(2),
                         rst.getBigDecimal(3),
@@ -28,13 +27,13 @@ public class ItemDAO {
         }
     }
 
-    public static Item findItem(String itemCode){
+    public Item findItem(String itemCode) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
             pstm.setObject(1, itemCode);
             ResultSet rst = pstm.executeQuery();
-            if (rst.next()){
+            if (rst.next()) {
                 return new Item(rst.getString(1),
                         rst.getString(2),
                         rst.getBigDecimal(3),
@@ -47,7 +46,7 @@ public class ItemDAO {
         }
     }
 
-    public static boolean saveItem(Item item){
+    public boolean saveItem(Item item) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item VALUES (?,?,?,?)");
@@ -62,7 +61,7 @@ public class ItemDAO {
         }
     }
 
-    public static boolean updateItem(Item item){
+    public boolean updateItem(Item item) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
@@ -77,7 +76,7 @@ public class ItemDAO {
         }
     }
 
-    public static boolean deleteItem(String itemCode){
+    public boolean deleteItem(String itemCode) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
@@ -89,14 +88,14 @@ public class ItemDAO {
         }
     }
 
-    public static String getLastItemCode() {
+    public String getLastItemCode() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Item ORDER BY code DESC LIMIT 1");
-            if (!rst.next()){
+            if (!rst.next()) {
                 return null;
-            }else{
+            } else {
                 return rst.getString(1);
             }
         } catch (SQLException throwables) {

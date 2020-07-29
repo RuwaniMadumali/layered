@@ -9,13 +9,13 @@ import java.util.List;
 
 public class CustomerDAO {
 
-    public static List<Customer> findAllCustomers(){
+    public List<Customer> findAllCustomers() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
             List<Customer> customers = new ArrayList<>();
-            while (rst.next()){
+            while (rst.next()) {
                 customers.add(new Customer(rst.getString(1),
                         rst.getString(2),
                         rst.getString(3)));
@@ -27,13 +27,13 @@ public class CustomerDAO {
         }
     }
 
-    public static Customer findCustomer(String customerId){
+    public Customer findCustomer(String customerId) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
             pstm.setObject(1, customerId);
             ResultSet rst = pstm.executeQuery();
-            if (rst.next()){
+            if (rst.next()) {
                 return new Customer(rst.getString(1),
                         rst.getString(2),
                         rst.getString(3));
@@ -45,7 +45,7 @@ public class CustomerDAO {
         }
     }
 
-    public static boolean saveCustomer(Customer customer){
+    public boolean saveCustomer(Customer customer) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?)");
@@ -59,7 +59,7 @@ public class CustomerDAO {
         }
     }
 
-    public static boolean updateCustomer(Customer customer){
+    public boolean updateCustomer(Customer customer) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
@@ -73,7 +73,7 @@ public class CustomerDAO {
         }
     }
 
-    public static boolean deleteCustomer(String customerId){
+    public boolean deleteCustomer(String customerId) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
@@ -85,14 +85,14 @@ public class CustomerDAO {
         }
     }
 
-    public static String getLastCustomerId() {
+    public String getLastCustomerId() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer ORDER BY id DESC LIMIT 1");
-            if (!rst.next()){
+            if (!rst.next()) {
                 return null;
-            }else{
+            } else {
                 return rst.getString(1);
             }
         } catch (SQLException throwables) {
