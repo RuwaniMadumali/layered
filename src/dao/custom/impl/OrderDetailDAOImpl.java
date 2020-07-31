@@ -1,8 +1,7 @@
-package dao.impl;
+package dao.custom.impl;
 
-import dao.OrderDetailDAO;
+import dao.custom.OrderDetailDAO;
 import db.DBConnection;
-import entity.Order;
 import entity.OrderDetail;
 import entity.OrderDetailPK;
 
@@ -12,7 +11,9 @@ import java.util.List;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-    public  List<OrderDetail> findAllOrderDetails() {
+
+    @Override
+    public List<OrderDetail> findAll() {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
@@ -31,7 +32,8 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         }
     }
 
-    public  OrderDetail findOrderDetail(OrderDetailPK orderDetailPK) {
+    @Override
+    public OrderDetail find(OrderDetailPK orderDetailPK) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM `OrderDetail` WHERE orderId=? AND itemCode=?");
@@ -51,7 +53,8 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         }
     }
 
-    public  boolean saveOrderDetail(OrderDetail orderDetail) {
+    @Override
+    public boolean save(OrderDetail orderDetail) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("INSERT INTO `OrderDetail` VALUES (?,?,?,?)");
@@ -66,7 +69,8 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         }
     }
 
-    public  boolean updateOrderDetail(OrderDetail orderDetail) {
+    @Override
+    public boolean update(OrderDetail orderDetail) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement("UPDATE OrderDetail SET qty=?, unitPrice=? WHERE orderId=? AND itemCode=?");
@@ -81,7 +85,8 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         }
     }
 
-    public  boolean deleteOrderDetail(OrderDetailPK orderDetailPK) {
+    @Override
+    public boolean delete(OrderDetailPK orderDetailPK) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.
